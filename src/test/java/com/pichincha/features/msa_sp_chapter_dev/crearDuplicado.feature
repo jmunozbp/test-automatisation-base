@@ -2,9 +2,9 @@
 Feature: Helper para probar creación de personaje con nombre duplicado
 
   Scenario: Intentar crear un personaje con nombre duplicado
-    * url port_chapter_dev
+    * url baseUrl
     * path '/characters'
-    * def jsonData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * set jsonData.name = name
     * headers { 'Content-Type': 'application/json' }
     And request jsonData

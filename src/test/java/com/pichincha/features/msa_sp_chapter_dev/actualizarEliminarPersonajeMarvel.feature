@@ -1,7 +1,7 @@
-@REQ_HU-CD-001 @HU001 @character_update_delete @chapter_dev @Agente2 @E2 @iniciativa_marvel
+@REQ_HU-CD-001 @HU001 @character_update_delete @msa_sp_chapter_dev @Agente2 @E2 @iniciativa_marvel
 Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio para gestión de personajes)
   Background:
-    * url port_chapter_dev
+    * url baseUrl
     * def generarHeaders =
       """
       function() {
@@ -17,7 +17,7 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
   Scenario: T-API-HU-CD-001-CA09-Actualizar personaje exitosamente 200 - karate
     # Primero creamos un personaje para asegurar que existe
     * path '/characters'
-    * def jsonData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * def uniqueName = "UpdateTest " + java.util.UUID.randomUUID().toString().substring(0, 8)
     * set jsonData.name = uniqueName
     And request jsonData
@@ -27,7 +27,7 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
 
     # Ahora actualizamos el personaje
     * path '/characters/' + characterId
-    * def jsonUpdateData = read('classpath:data/chapter_dev/request_update_character.json')
+    * def jsonUpdateData = read('classpath:data/msa_sp_chapter_dev/request_update_character.json')
     * set jsonUpdateData.name = uniqueName  // Mantener el mismo nombre para evitar errores de duplicación
     And request jsonUpdateData
     When method PUT
@@ -38,7 +38,7 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
   @id:2 @actualizarPersonaje @errorNoEncontrado404
   Scenario: T-API-HU-CD-001-CA10-Actualizar personaje no existente 404 - karate
     * path '/characters/999'
-    * def jsonUpdateData = read('classpath:data/chapter_dev/request_update_character.json')
+    * def jsonUpdateData = read('classpath:data/msa_sp_chapter_dev/request_update_character.json')
     And request jsonUpdateData
     When method PUT
     Then status 404
@@ -48,7 +48,7 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
   @id:3 @actualizarPersonaje @errorServicio404
   Scenario: T-API-HU-CD-001-CA11-Actualizar personaje no existente 404 - karate
     * path '/characters/-1'
-    * def jsonUpdateData = read('classpath:data/chapter_dev/request_update_character.json')
+    * def jsonUpdateData = read('classpath:data/msa_sp_chapter_dev/request_update_character.json')
     And request jsonUpdateData
     When method PUT
     Then status 404
@@ -59,7 +59,7 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
   Scenario: T-API-HU-CD-001-CA12-Eliminar personaje exitosamente 204 - karate
     # Primero creamos un personaje para asegurar que existe
     * path '/characters'
-    * def jsonData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * def uniqueName = "DeleteTest " + java.util.UUID.randomUUID().toString().substring(0, 8)
     * set jsonData.name = uniqueName
     And request jsonData

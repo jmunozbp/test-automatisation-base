@@ -1,8 +1,8 @@
-@REQ_HU-CD-001 @HU001 @character_creation @chapter_dev @Agente2 @E2 @iniciativa_marvel
+@REQ_HU-CD-001 @HU001 @character_creation @msa_sp_chapter_dev @Agente2 @E2 @iniciativa_marvel
 Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de personajes)
 
   Background:
-    * url port_chapter_dev
+    * url baseUrl
     * path '/characters'
     * def generarHeaders =
       """
@@ -17,7 +17,7 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
 
   @id:1 @crearPersonaje @solicitudExitosa201
   Scenario: T-API-HU-CD-001-CA01-Crear personaje exitosamente 201 - karate
-    * def jsonData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * def randomName = "Iron Man " + java.util.UUID.randomUUID().toString().substring(0, 8)
     * set jsonData.name = randomName
     And request jsonData
@@ -28,7 +28,7 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
 
   @id:2 @crearPersonaje @errorValidacion400
   Scenario: T-API-HU-CD-001-CA02-Crear personaje con datos inválidos 400 - karate
-    * def jsonData = read('classpath:data/chapter_dev/request_create_invalid_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_invalid_character.json')
     And request jsonData
     When method POST
     Then status 400
@@ -37,7 +37,7 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
 
   @id:3 @crearPersonaje @errorDuplicado400
   Scenario: T-API-HU-CD-001-CA03-Crear personaje con nombre duplicado 400 - karate
-    * def jsonData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * def duplicateName = "Duplicate Character Test"
     * set jsonData.name = duplicateName
     
@@ -52,7 +52,7 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
     * assert responseStatus == 201
     
     # Ahora intentamos crear otro personaje con el mismo nombre
-    * def secondRequestData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def secondRequestData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * set secondRequestData.name = duplicateName
     * set secondRequestData.alterego = "Otro alterego"
     * set secondRequestData.description = "Otra descripción"
@@ -63,7 +63,7 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
 
   @id:4 @crearPersonaje @errorServicio500
   Scenario: T-API-HU-CD-001-CA04-Crear personaje con error de servicio 500 - karate
-    * def jsonData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * def uniqueName = "ErrorTest " + java.util.UUID.randomUUID().toString().substring(0, 8)
     * set jsonData.name = uniqueName
     * path '/characters/invalid-endpoint'  // Ruta inválida para forzar un error

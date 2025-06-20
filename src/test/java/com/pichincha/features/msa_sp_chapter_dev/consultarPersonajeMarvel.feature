@@ -1,7 +1,7 @@
-@REQ_HU-CD-001 @HU001 @character_get @chapter_dev @Agente2 @E2 @iniciativa_marvel
+@REQ_HU-CD-001 @HU001 @character_get @msa_sp_chapter_dev @Agente2 @E2 @iniciativa_marvel
 Feature: HU-CD-001 Consultar personajes de Marvel (microservicio para gestión de personajes)
   Background:
-    * url port_chapter_dev
+    * url baseUrl
     * def generarHeaders =
       """
       function() {
@@ -25,7 +25,7 @@ Feature: HU-CD-001 Consultar personajes de Marvel (microservicio para gestión d
   Scenario: T-API-HU-CD-001-CA06-Consultar personaje por ID 200 - karate
     # Primero creamos un personaje para asegurar que hay datos
     * path '/characters'
-    * def jsonData = read('classpath:data/chapter_dev/request_create_character.json')
+    * def jsonData = read('classpath:data/msa_sp_chapter_dev/request_create_character.json')
     * def uniqueName = "Character " + java.util.UUID.randomUUID().toString().substring(0, 8)
     * set jsonData.name = uniqueName
     And request jsonData
