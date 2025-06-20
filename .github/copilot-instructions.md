@@ -112,8 +112,8 @@ Feature: [HISTORIA-ID] Nombre de la funcionalidad (microservicio para...)
     And request jsonData
     When method POST
     Then status 200
-    # And match response != null
-    # And match response.data != null
+    And match response != null
+    And match response.data != null
 
     Examples:
       | read('classpath:data/microservicio/datos_ejemplo.json') |

@@ -23,8 +23,8 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
     And request jsonData
     When method POST
     Then status 201
-    # And match response != null
-    # And match response.id != null
+    And match response != null
+    And match response.id != null
 
   @id:2 @crearPersonaje @errorValidacion400
   Scenario: T-API-HU-CD-001-CA02-Crear personaje con datos inválidos 400 - karate
@@ -32,8 +32,8 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
     And request jsonData
     When method POST
     Then status 400
-    # And match response.name == 'Name is required'
-    # And match response.alterego == 'Alterego is required'
+    And match response.name == 'Name is required'
+    And match response.alterego == 'Alterego is required'
 
   @id:3 @crearPersonaje @errorDuplicado400
   Scenario: T-API-HU-CD-001-CA03-Crear personaje con nombre duplicado 400 - karate
@@ -70,5 +70,5 @@ Feature: HU-CD-001 Crear personajes de Marvel (microservicio para gestión de pe
     And request jsonData
     When method POST
     Then status 500
-    # And match response.error contains 'Internal Server Error'
-    # And match response != null
+    And match response != null
+    And match karate.lowerCase(response.error) == karate.lowerCase('Internal Server Error')

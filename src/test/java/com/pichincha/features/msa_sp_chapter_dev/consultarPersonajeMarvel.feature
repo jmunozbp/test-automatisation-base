@@ -1,5 +1,6 @@
 @REQ_HU-CD-001 @HU001 @character_get @msa_sp_chapter_dev @Agente2 @E2 @iniciativa_marvel
 Feature: HU-CD-001 Consultar personajes de Marvel (microservicio para gestión de personajes)
+
   Background:
     * url baseUrl
     * def generarHeaders =
@@ -18,8 +19,8 @@ Feature: HU-CD-001 Consultar personajes de Marvel (microservicio para gestión d
     * path '/characters'
     When method GET
     Then status 200
-    # And match response != null
-    # And match response == '#array'
+    And match response != null
+    And match response == '#array'
 
   @id:2 @consultarPersonaje @solicitudExitosa200
   Scenario: T-API-HU-CD-001-CA06-Consultar personaje por ID 200 - karate
@@ -38,21 +39,21 @@ Feature: HU-CD-001 Consultar personajes de Marvel (microservicio para gestión d
     * path '/characters/' + characterId
     When method GET
     Then status 200
-    # And match response.id == characterId
-    # And match response.name == characterName
+    And match response.id == characterId
+    And match response.name == characterName
 
   @id:3 @consultarPersonaje @errorNoEncontrado404
   Scenario: T-API-HU-CD-001-CA07-Consultar personaje no existente 404 - karate
     * path '/characters/999'
     When method GET
     Then status 404
-    # And match response.error == 'Character not found'
-    # And match response != null
-    
+    And match response.error == 'Character not found'
+    And match response != null
+
   @id:4 @consultarPersonaje @errorServicio404
   Scenario: T-API-HU-CD-001-CA08-Consultar personaje con ID no válido 404 - karate
     * path '/characters/-1'
     When method GET
     Then status 404
-    # And match response.error == 'Character not found'
-    # And match response != null
+    And match response.error == 'Character not found'
+    And match response != null

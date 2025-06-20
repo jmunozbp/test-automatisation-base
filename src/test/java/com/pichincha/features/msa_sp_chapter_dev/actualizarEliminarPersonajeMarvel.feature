@@ -1,5 +1,6 @@
 @REQ_HU-CD-001 @HU001 @character_update_delete @msa_sp_chapter_dev @Agente2 @E2 @iniciativa_marvel
 Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio para gestión de personajes)
+
   Background:
     * url baseUrl
     * def generarHeaders =
@@ -32,8 +33,8 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
     And request jsonUpdateData
     When method PUT
     Then status 200
-    # And match response.id == characterId
-    # And match response.description == 'Updated description'
+    And match response.id == characterId
+    And match response.description == 'Updated description'
 
   @id:2 @actualizarPersonaje @errorNoEncontrado404
   Scenario: T-API-HU-CD-001-CA10-Actualizar personaje no existente 404 - karate
@@ -42,8 +43,8 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
     And request jsonUpdateData
     When method PUT
     Then status 404
-    # And match response.error == 'Character not found'
-    # And match response != null
+    And match response.error == 'Character not found'
+    And match response != null
 
   @id:3 @actualizarPersonaje @errorServicio404
   Scenario: T-API-HU-CD-001-CA11-Actualizar personaje no existente 404 - karate
@@ -52,8 +53,8 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
     And request jsonUpdateData
     When method PUT
     Then status 404
-    # And match response.error == 'Character not found'
-    # And match response != null
+    And match response.error == 'Character not found'
+    And match response != null
 
   @id:4 @eliminarPersonaje @solicitudExitosa204
   Scenario: T-API-HU-CD-001-CA12-Eliminar personaje exitosamente 204 - karate
@@ -82,13 +83,13 @@ Feature: HU-CD-001 Actualizar y eliminar personajes de Marvel (microservicio par
     * path '/characters/999'
     When method DELETE
     Then status 404
-    # And match response.error == 'Character not found'
-    # And match response != null
-    
+    And match response.error == 'Character not found'
+    And match response != null
+
   @id:6 @eliminarPersonaje @errorServicio404
   Scenario: T-API-HU-CD-001-CA14-Eliminar personaje inexistente 404 - karate
     * path '/characters/-1'
     When method DELETE
     Then status 404
-    # And match response.error == 'Character not found'
-    # And match response != null
+    And match response.error == 'Character not found'
+    And match response != null
